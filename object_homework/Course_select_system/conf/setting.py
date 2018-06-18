@@ -12,8 +12,8 @@ BASE_DIR = path.dirname(path.dirname(path.abspath(__file__))) #整个程序的�
 
 schoolinfo = '%s/db/schoolinfo'%BASE_DIR
 classinfo = '%s/db/classinfo'%BASE_DIR
-couse_obj = '%s/db/couse_obj'%BASE_DIR
-student_obj = '%s/db/student_obj'%BASE_DIR
+course_obj = '%s/db/course_obj'%BASE_DIR
+studentinfo = '%s/db/studentinfo'%BASE_DIR  #这是一个目录， 其他的都是文件
 teacher_obj = '%s/db/teacher_obj'%BASE_DIR
 user_account = '%s/db/user_account'%BASE_DIR
 

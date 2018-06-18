@@ -6,32 +6,46 @@
 
 
 import pickle
-#
+import os
+
+
+#写一个通用类，可以用来处理所有数据，保存，修改，读取
+
+class Mypickle:
+    def __init__(self,filename ):
+        self.filename = filename
+
+    def dump(self, obj):  #dump 文件
+        with open(self.filename,'ab') as f:
+            pickle.dump(obj,f, 1)
+
+    def loaditer(self): # 取文件内容
+        with open(self.filename, 'rb') as f:
+            while True:
+                try:
+                    obj = pickle.load(f)
+                    yield obj
+                except:
+                    break
+
+    def edit(self,obj): #修改
+        f2 = Mypickle(self.filename+'.bak')
+
+        for item in self.loaditer():
+            if item.name == obj.name:
+                print('yes')
+                f2.dump(obj)
+                print('dump')
+            else:
+                f2.dump(item)
+                print('no')
+        os.replace(self.filename+'.bak', self.filename)
+        #os.remove(self.filename+'.bak')
 
 
 
 
-def file_oper(file, mode, *args):
-    # 数据库写入、读取操作
-
-    if mode == "ab":
-        with open(file, mode) as f:
-            # dict2 = args[0]
-            dict2 = 'alex|123|0|role' + '\n'
-            pickle.dump(dict2, f)
 
 
-    if mode == "rb":  #pickle 数据需要用pickle 写入，再load
-        with open(file, mode) as f:
-
-            dict1 = pickle.load(f)
-            # print(dict1)
-            return dict1
-
-
-file_oper('account_file.txt','ab')
-dict_1 = file_oper('account_file.txt', 'rb')
-dict_2 = file_oper('account_file.txt', 'rb')
-print(dict_1,dict_2)
 
 

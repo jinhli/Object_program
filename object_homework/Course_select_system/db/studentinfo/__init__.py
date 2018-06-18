@@ -2,7 +2,5 @@
 # -*- coding: utf-8 -*-
 # __author__ = "Bonnie Li"
 # Email: bonnie922713@126.com
-# Date: 6/12/18
-
-$END$
+# Date: 6/13/18
 

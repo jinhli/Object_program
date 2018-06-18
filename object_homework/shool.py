@@ -5,17 +5,6 @@
 # Date: 6/10/18
 
 
-class School:   #创建学校
-    def __init__(self,name):
-        self.name = name
-
-
-class Course:   #create course
-    def __init__(self,name,school,learn_time,price):
-        self.name = name
-        self.shcloo = school
-        self.time = learn_time
-        self.price = price
 
 
 class Role:
