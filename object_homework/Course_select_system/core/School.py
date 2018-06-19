@@ -51,7 +51,7 @@ class Course:  # create course
 
 
 class Classes:
-    def __init__(self,name,course,student_path):
+    def __init__(self, name, course, student_path):
         self.name = name
         self.course = course
         self.student_path = student_path
@@ -60,7 +60,7 @@ class Classes:
     def __repr__(self):
         return self.name
 #
-# # # #
+# # # # #
 # if __name__=='__main__':
 #     school_pickel=Mypickle(schoolinfo)
 #     course_pickel = Mypickle(course_obj)
