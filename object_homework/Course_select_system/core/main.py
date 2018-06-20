@@ -4,15 +4,13 @@
 # Email: bonnie922713@126.com
 # Date: 6/14/18
 
-from os import getcwd,path
-from sys import path as sys_path
+from os import getcwd, path
 import sys
-sys_path.insert(0,path.dirname(getcwd()))
+from sys import path as sys_path
 from core.util import print_log
 from core.Management import Management
 from core.Student import Student
 from core.Teacher import Teacher
-from core.School import School
 from core.Mypickle import Mypickle
 from core.School import Course, Classes, School
 from conf.setting import *

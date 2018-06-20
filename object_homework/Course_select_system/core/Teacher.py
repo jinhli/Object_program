@@ -4,9 +4,6 @@
 # Email: bonnie922713@126.com
 # Date: 6/12/18
 
-from os import getcwd,path
-from sys import path as sys_path
-sys_path.insert(0,path.dirname(getcwd()))
 
 from core.School import Course, Classes, School
 from core.Student import Student
@@ -19,7 +16,7 @@ from core.Role import Role
 class Teacher(Role):
     menu = [('查看学生列表', 'show_student'), ('修改学生成绩', 'modify_score'), ('选班级', 'boundClass'), ('退出', 'exit')]
 
-    def __init__(self,name):
+    def __init__(self, name):
         super().__init__(name)
 
     def boundClass(self):
@@ -50,7 +47,7 @@ class Teacher(Role):
             for item_info in load_info:
                 if item_info.__dict__['name'] == student_name:
                     item_info.__dict__['score'] = student_score
-                    Mypickle(path).edit(item_info)  # 保存的是学生对象
+                    Mypickle(stu_path).edit(item_info)  # 保存的是学生对象
                 else:
                     print_log('你输入的学生不在该班级')
 

@@ -3,9 +3,8 @@
 # __author__ = "Bonnie Li"
 # Email: bonnie922713@126.com
 # Date: 6/12/18
-from os import getcwd,path
+from os import getcwd, path
 from sys import path as sys_path
-sys_path.insert(0,path.dirname(getcwd()))
 from conf.setting import schoolinfo,classinfo,course_obj
 from core.Mypickle import Mypickle
 from conf.setting import *
@@ -39,7 +38,7 @@ class School:  # 创建学校
 
 
 class Course:  # create course
-    def __init__(self,name,period,price,school):
+    def __init__(self, name, period, price, school):
         self.name = name
         self.period = period
         self.price = price
@@ -56,11 +55,11 @@ class Classes:
         self.course = course
         self.student_path = student_path
 
-
+    #
     def __repr__(self):
         return self.name
 #
-# # # # #
+# # # #
 # if __name__=='__main__':
 #     school_pickel=Mypickle(schoolinfo)
 #     course_pickel = Mypickle(course_obj)
@@ -82,7 +81,7 @@ class Classes:
 #     school_list=[beijing,shanghai]
 #     for i in school_list:
 #        school_pickel.dump(i)
-
-# #
+#
+# # #
 
 

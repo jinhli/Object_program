@@ -28,9 +28,8 @@ class Mypickle:
                 except:
                     break
 
-    def edit(self,obj): #修改
+    def edit(self, obj): #修改
         f2 = Mypickle(self.filename+'.bak')
-
         for item in self.loaditer():
             if item.name == obj.name:
                 print('yes')

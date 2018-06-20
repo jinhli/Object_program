@@ -3,10 +3,8 @@
 # __author__ = "Bonnie Li"
 # Email: bonnie922713@126.com
 # Date: 6/13/18
-
-from os import getcwd,path
+from os import getcwd, path
 from sys import path as sys_path
-sys_path.insert(0,path.dirname(getcwd()))
 
 from core.School import Course, Classes, School
 from core.Teacher import Teacher
@@ -20,7 +18,7 @@ class Management:
     menu = [('创建学校','create_school'),('创建老师账号','create_teacher'), ('创建学生账号','create_student'), ('创建课程','create_course'),('创建班级','create_classes'),
             ('显示老师信息','show_teacher'), ('显示学校','show_school'), ('显示课程','show_course'),('显示班级','show_classes'),('退出','exit')]
 
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
         self.teacher_pickle_obj = Mypickle(teacher_obj)
         self.course_pickle_obj = Mypickle(course_obj)
@@ -55,7 +53,7 @@ class Management:
         print_log('绑定学校成功','info')
 
     def create_teacher(self):
-        name,school =self.create_method()        # 输入讲师的姓名， 输入讲师的密码， 将老师的信息写入user_account
+        name, school =self.create_method()        # 输入讲师的姓名， 输入讲师的密码， 将老师的信息写入user_account
         teacher_obj = Teacher(name)
         teacher_obj.school = school
         self.teacher_pickle_obj.dump(teacher_obj)
@@ -74,7 +72,7 @@ class Management:
                 stu_obj.clas = choose_class
                 stu_obj.course = choose_course
                 Mypickle(clas.student_path).dump(stu_obj)
-                print_log('创建成功','info')
+                print_log('创建成功', 'info')
         # else:
         #     print_log('你输入的内容有错误，创建学生对象失败')
 
@@ -105,10 +103,10 @@ class Management:
         price = input('请输入课程价格>>:').strip()
         course_obj = Course(name, period, price, school) # 生成一个课程对象
         self.course_pickle_obj.dump(course_obj) # 把课程对象写入到文件
-        self.bound_school(school,course=course_obj)
+        self.bound_school(school, course=course_obj)
 
     def show(self, pickle_obj):
-        pickle_obj= getattr(self,pickle_obj)
+        pickle_obj = getattr(self, pickle_obj)
         load_info = pickle_obj.loaditer()
         for item_info in load_info:
             for i in item_info.__dict__.keys():
@@ -116,8 +114,6 @@ class Management:
             print('-' * 50)
 
     def show_school(self):
-        print('please list all the school')
-
         self.show('school_pickle_obj')  # 把字符串'school_pickle_obj'传到show, 然后show 通过反射，找到属性 Mypickle(schoolinfo)
 
     def show_teacher(self):
