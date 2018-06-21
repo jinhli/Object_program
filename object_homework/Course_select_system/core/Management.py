@@ -3,16 +3,14 @@
 # __author__ = "Bonnie Li"
 # Email: bonnie922713@126.com
 # Date: 6/13/18
-from os import getcwd, path
-from sys import path as sys_path
-
-from core.School import Course, Classes, School
-from core.Teacher import Teacher
-from core.Student import Student
+from os import path
 from core.Mypickle import Mypickle
 from conf.setting import *
+from core.Student import Student
+from core.Teacher import Teacher
 from core.util import print_log
-
+from core.Role import Role
+from core.School import *
 
 class Management:
     menu = [('创建学校','create_school'),('创建老师账号','create_teacher'), ('创建学生账号','create_student'), ('创建课程','create_course'),('创建班级','create_classes'),
@@ -69,7 +67,7 @@ class Management:
             if clas.name == choose_class:
                 stu_obj = Student(name)
                 stu_obj.school = school
-                stu_obj.clas = choose_class
+                stu_obj.clas = clas
                 stu_obj.course = choose_course
                 Mypickle(clas.student_path).dump(stu_obj)
                 print_log('创建成功', 'info')
@@ -84,15 +82,16 @@ class Management:
     def create_classes(self):
         self.show_school()
         school = input('请输入学校>>:').strip()
-        class_name = input('请输入班级名称:').strip()
-        sch_obj = School.getObj(school, schoolinfo)
-        sch_obj.showSchoolCourse
+        school_obj = Role.getObj(school, schoolinfo) #学校对象
+        print('你所在学校的可选课程>>:%s ' % school_obj.course)
         course_name = input('请输入课程名称>>:').strip()
+        class_name = input('请输入班级名称:').strip()
         student_path = path.join(studentinfo, class_name)
         open(student_path, 'w').close()
         class_obj = Classes(class_name, course_name, student_path)
         self.class_pickle_obj.dump(class_obj)
-        self.course_pickle_obj.dump(course_obj) # 把课程对象写入到文件
+        school_obj.clas.append(class_obj.name)
+        self.school_pickle_obj.edit(school_obj)
         print_log('创建成功', 'info')
 
     def create_course(self):
@@ -126,6 +125,3 @@ class Management:
         self.show('course_pickle_obj')
 
 
-
-# manage = Management('mm')
-# manage.show_course()

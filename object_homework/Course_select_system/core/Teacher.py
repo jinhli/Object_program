@@ -4,13 +4,10 @@
 # Email: bonnie922713@126.com
 # Date: 6/12/18
 
-
-from core.School import Course, Classes, School
-from core.Student import Student
+from core.Role import Role
+from core.util import print_log
 from core.Mypickle import Mypickle
 from conf.setting import *
-from core.util import print_log
-from core.Role import Role
 
 
 class Teacher(Role):
@@ -31,10 +28,9 @@ class Teacher(Role):
             load_info = Mypickle(path).loaditer()
             for item_info in load_info:
                 for i in item_info.__dict__.keys():
-                    if i != 'clas':
+                    if i != 'clas' and i != 'budget':
                         print(i, item_info.__dict__[i])
                 print('-' * 50)
-                print('show student')
         else:
             print_log('你没有绑定任何班级')
 
@@ -49,7 +45,10 @@ class Teacher(Role):
                     item_info.__dict__['score'] = student_score
                     Mypickle(stu_path).edit(item_info)  # 保存的是学生对象
                 else:
-                    print_log('你输入的学生不在该班级')
+                    print_log('你输入的学生不在该班级','error')
+        else:
+            print_log('你还没有绑定班级', 'error')
+
 
 
 

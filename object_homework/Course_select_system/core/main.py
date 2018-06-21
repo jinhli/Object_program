@@ -6,15 +6,15 @@
 
 from os import getcwd, path
 import sys
-from sys import path as sys_path
 from core.util import print_log
-from core.Management import Management
 from core.Student import Student
 from core.Teacher import Teacher
 from core.Mypickle import Mypickle
-from core.School import Course, Classes, School
+from core.School import *
 from conf.setting import *
-from core.util import print_log
+from core.Role import Role
+from core.Management import Management
+
 
 
 def login():
@@ -52,28 +52,24 @@ def main():
     if ret:
         print(ret['username'], ret['role'])
         role_class = getattr(sys.modules[__name__],ret['role'])  # 得到 类名
-        # obj = role_class(ret['username'])  # 得到基本的角色对象 ,我想直接从数据库得道实例
         if ret['role'] == 'Management':
             obj = role_class(ret['username'])  # 得到基本的角色对象 ,我想直接从数据库得道实例
         elif ret['role'] == 'Teacher':
-            obj = School.getObj(ret['username'], teacher_obj)
+            obj = Role.getObj(ret['username'], teacher_obj)
         else:
             clas_name = input("你是学生账号，请输入你所在的班级>>:").strip()
             stu_path = path.join(studentinfo, clas_name)
-            obj = School.getObj(ret['username'], stu_path)
+            obj = Role.getObj(ret['username'], stu_path)
 
         while True:
             for i, j in enumerate(role_class.menu, 1):
-                # print(i,j[0])
                 print('\033[32;1m%s %s\033[0m' % (i, j[0]))
-        # try:
             ret = int(input('请输入操作序号'))
             if role_class.menu[ret-1][1] == 'exit':
                 exit('退出系统')
             else:
                 getattr(obj, role_class.menu[ret-1][1])()
-        # except:
-        #     print_log('对不起，输入不正确','error')
+
 
 
 main()

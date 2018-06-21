@@ -6,14 +6,11 @@
 
 
 from os import getcwd, path
-from sys import path as sys_path
 
-from core.School import Course, Classes, School
+from core.Role import Role
+from core.util import print_log
 from core.Mypickle import Mypickle
 from conf.setting import *
-from core.util import print_log
-from core.Role import Role
-import os.path
 
 
 class Student(Role):
@@ -32,18 +29,27 @@ class Student(Role):
         course_info = Mypickle(course_obj).loaditer()
         for course in course_info:
             if self.course == course.__dict__['name']:
-                class_price = course.__dict__['price']
-                print('课程价格>>:%s' % class_price)
-                self.budget = self.budget - int(class_price)
-        stu_path = path.join(studentinfo, self.clas)
-        Mypickle(stu_path).edit(self)
-        print('缴费成功，剩余金额是>>:%s' % self.budget)
+                course_price = course.__dict__['price']
+                print('课程价格>>:%s' % course_price)
+                budget = self.budget - int(course_price)
+                if budget >= 0:
+                    self.budget = budget
+                    stu_path = path.join(studentinfo, self.clas.name)
+                    Mypickle(stu_path).edit(self)
+                    print('缴费成功，剩余金额是>>:%s' % self.budget)
+                else:
+                    print('缴费失败，余额不足 %s' %self.budget)
+
+
 
     def boundClass(self):  # 默认管理员会设置班级， 但是可以自己选 班级
-        print('你目前所在的班级>>:%s' % self.clas)
+        print('你目前所在的班级>>:%s' % self.clas.name)
+        previous_clas = self.clas
         super().boundClass()
         stu_path = path.join(studentinfo, self.clas.name)
+        stu_path1 = path.join(studentinfo,previous_clas.name)
         Mypickle(stu_path).dump(self)  # 把一个新对象加入到文件
+        Mypickle(stu_path1).delInfo(self) #在原来班级信息中删除学生信息
         print_log('绑定班级成功', 'info')
 
 

@@ -3,13 +3,8 @@
 # __author__ = "Bonnie Li"
 # Email: bonnie922713@126.com
 # Date: 6/12/18
-from os import getcwd, path
-from sys import path as sys_path
-from conf.setting import schoolinfo,classinfo,course_obj
-from core.Mypickle import Mypickle
-from conf.setting import *
-#
 
+from core.Mypickle import Mypickle
 
 class School:  # 创建学校
     def __init__(self,name):
@@ -29,12 +24,6 @@ class School:  # 创建学校
             print(course_obj.name)
         print('-' * 50)
 
-    @staticmethod
-    def getObj(obj_name, obj_name_file):
-        load_info = Mypickle(obj_name_file).loaditer()  # 加载课程对象
-        for item_info in load_info:
-            if item_info.__dict__['name'] == obj_name:  # 课程对象
-                return item_info
 
 
 class Course:  # create course
@@ -55,12 +44,21 @@ class Classes:
         self.course = course
         self.student_path = student_path
 
-    #
+    # #
     def __repr__(self):
         return self.name
-#
-# # # #
+
+
+##初始化成序
+
 # if __name__=='__main__':
+#     from os import getcwd, path
+#     from sys import path as sys_path
+#
+#     sys_path.insert(0, path.dirname(getcwd()))
+#     from core.Mypickle import Mypickle
+#     from core.School import *
+#     from conf.setting import *
 #     school_pickel=Mypickle(schoolinfo)
 #     course_pickel = Mypickle(course_obj)
 #     # 初始课程
@@ -81,7 +79,7 @@ class Classes:
 #     school_list=[beijing,shanghai]
 #     for i in school_list:
 #        school_pickel.dump(i)
-#
+# #
 # # #
 
 
